@@ -14,43 +14,61 @@ int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result){
 	BN_CTX *bn_ctx;
 	BIGNUM *a;
 
+	
 	bn_ctx = BN_CTX_new();
 	a = BN_new();
+	int k = BN_num_bits(e);
+	char *buf = malloc((BN_num_bytes(e)+1)*sizeof(char));
+	buf[BN_num_bytes(e)]='\0';
+	int len = BN_bn2bin(e,buf);
 
-	// step1
+	int start=0;
+	int step_1=0;
+	int i,j;	
+	for(i=0;i<k;i++){
 
-	if( 1){
-		// C = M
-		BN_copy(result, M);
-	}
-	else{
-		// C = 0
-		BN_zero(M);
-	}
+		for(j=7;j>=0;--j){
+		
+			if(start==0 && (buf[i]&(1<<j))==0)
+				continue;
+			start=1;			
 	
-	// step2
+			// step1
+		
+			if(step_1==0){
+				
+				step_1=1;
 
-	int i;	
-	for(i=1;i<8;i++){
+				if((buf[i]&(1<<j))==1){
+					// C = M
+					BN_copy(result, M);
+				}
+				else{
+					// C = 0
+					BN_zero(M);
+				}
+	
+				continue;	
+			}
 
-		BN_copy(a,result); //make copy of result ( C )
 
-		//step 2a
-		//C=C*C
-		BN_sqr(result,a,bn_ctx);
-		//C=C mod n
-		BN_copy(a,result);
-		BN_mod(result,a,n,bn_ctx);	
-		//step2b
-		if ( 1){
-			//C=C*M
+			//step 2a
+			//C=C*C
+			BN_copy(a,result); //make copy of result ( C )
+			BN_sqr(result,a,bn_ctx);
+			//C=C mod n
 			BN_copy(a,result);
-			BN_mul(result,a,M,bn_ctx);
-			//C-C mod n
-			BN_copy(a,result);
-			BN_mod(result,a,n,bn_ctx);
+			BN_mod(result,a,n,bn_ctx);	
+			//step2b
+			if ( (buf[i]&(1<<j))==1){
+				//C=C*M
+				BN_copy(a,result);
+				BN_mul(result,a,M,bn_ctx);
+				//C-C mod n
+				BN_copy(a,result);
+				BN_mod(result,a,n,bn_ctx);
+			}
 		}
-
 	}	
 
 		
