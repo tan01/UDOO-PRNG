@@ -15,15 +15,21 @@ int main()
 	int len = BN_bn2bin(a,buf);
 
 	printf("output is : %s\n",buf);
+	int start=0;
 
 	int i,j;
 	for(j=0;j<len;j++){
 
 		
 		for(i=7;i>=0;--i){
+			if(start==0 && (buf[j]&(1<<i))==0)
+				continue;
+			start=1;
 			putchar( (buf[j] &(1<<i))? '1':'0');
 		}
 
 	}
+	
+	printf("number of bits is: %d",BN_num_bits(a));
 
 }
