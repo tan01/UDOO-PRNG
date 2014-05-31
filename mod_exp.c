@@ -29,8 +29,9 @@ int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result){
 	}
 	
 	// step2
-	
-	for(int i=1;i<k;i++){
+
+	int i;	
+	for(i=1;i<8;i++){
 
 		BN_copy(a,result); //make copy of result ( C )
 
@@ -56,3 +57,5 @@ int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result){
 
 
 	BN_CTX_free(bn_ctx);
+	return 0;
+}
