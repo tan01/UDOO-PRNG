@@ -18,14 +18,16 @@ int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result){
 	bn_ctx = BN_CTX_new();
 	a = BN_new();
 	int k = BN_num_bits(e);
+	//printf("k = %d\n",k);
 	char *buf = malloc((BN_num_bytes(e)+1)*sizeof(char));
 	buf[BN_num_bytes(e)]='\0';
 	int len = BN_bn2bin(e,buf);
+	//printf("len = %d\n",len);
 
 	int start=0;
 	int step_1=0;
 	int i,j;	
-	for(i=0;i<k;i++){
+	for(i=0;i<len;i++){
 
 		for(j=7;j>=0;--j){
 		
@@ -34,20 +36,23 @@ int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result){
 			start=1;			
 	
 			// step1
+			//putchar( ( buf[i] &(1<<j))? '1':'0');
 		
 			if(step_1==0){
 				
 				step_1=1;
 
-				if((buf[i]&(1<<j))==1){
+				if((buf[i]&(1<<j))){
 					// C = M
 					BN_copy(result, M);
 				}
 				else{
-					// C = 0
-					BN_zero(M);
+					// C = 1
+					BN_one(result);
 				}
 	
+				//printf("starting value: ",);
+
 				continue;	
 			}
 
@@ -60,7 +65,7 @@ int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result){
 			BN_copy(a,result);
 			BN_mod(result,a,n,bn_ctx);	
 			//step2b
-			if ( (buf[i]&(1<<j))==1){
+			if ( (buf[i]&(1<<j))){
 				//C=C*M
 				BN_copy(a,result);
 				BN_mul(result,a,M,bn_ctx);
