@@ -1,5 +1,12 @@
 #include "mod_exp.h"
 
+#include <openssl/bio.h>
+#include <stdio.h>
+
+
+void print_result(BIGNUM* result){
+	BN_print_fp(stdout, result);
+}
 int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result){
 
 	// k = size of exponent
@@ -49,4 +56,3 @@ int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result){
 
 
 	BN_CTX_free(bn_ctx);
-}

@@ -4,3 +4,5 @@
 // 	0: failure
 // 	1: success
 int mod_exp_binary(BIGNUM* M, BIGNUM* e, BIGNUM* n, BIGNUM* result);
+
+void print_result(BIGNUM* result);
