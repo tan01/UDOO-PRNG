@@ -5,6 +5,17 @@
 int main(){
 	BIGNUM* p = BN_new();
 	BIGNUM* q = BN_new();
+	BIGNUM* M = BN_new();
+	BIGNUM* e = BN_new();
+	BIGNUM* f = BN_new();
+
+	BN_zero(f);
+	BN_zero(e);
+	BN_zero(M);
+
+	BN_add_word(M, 2);
+	BN_add_word(e, 2);
+	BN_add_word(f, 8);
 
 	BIO *out = NULL;
 	out = BIO_new(BIO_s_file());
@@ -34,6 +45,14 @@ int main(){
 
 	printf("Key: %s\n", decimal_k);
 	printf("Totient of p:%s\n times totient of q:%s\n is\n%s", decimal_p, decimal_q, decimal_t);
+
+	BIGNUM* res = BN_new();
+
+	mod_exp_binary(M, e, f, res);
+
+	char* decimal_res = BN_bn2dec(res);
+
+	printf("exp_mod: %s\n", decimal_res);
 
 	return 0;
 }
