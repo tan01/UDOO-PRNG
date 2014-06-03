@@ -16,6 +16,7 @@ int main(){
 	BN_set_word(e, 2);
 	BN_set_word(f, 8);
 
+
 	BIO *out = NULL;
 	out = BIO_new(BIO_s_file());
 
