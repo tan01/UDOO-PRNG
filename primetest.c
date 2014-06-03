@@ -1,5 +1,4 @@
-#include "key_gen.h"
-#include "mod_exp.h"
+#include "rsa.h"
 #include <stdio.h>
 
 int main(){
@@ -13,9 +12,9 @@ int main(){
 	BN_zero(e);
 	BN_zero(M);
 
-	BN_add_word(M, 2);
-	BN_add_word(e, 2);
-	BN_add_word(f, 8);
+	BN_set_word(M, 2);
+	BN_set_word(e, 2);
+	BN_set_word(f, 8);
 
 	BIO *out = NULL;
 	out = BIO_new(BIO_s_file());
@@ -44,7 +43,7 @@ int main(){
 	char* decimal_t = BN_bn2dec(totient);
 
 	printf("Key: %s\n", decimal_k);
-	printf("Totient of p:%s\n times totient of q:%s\n is\n%s", decimal_p, decimal_q, decimal_t);
+	printf("Totient of p:%s\n times totient of q:%s\n is %s\n", decimal_p, decimal_q, decimal_t);
 
 	BIGNUM* res = BN_new();
 
@@ -53,6 +52,10 @@ int main(){
 	char* decimal_res = BN_bn2dec(res);
 
 	printf("exp_mod: %s\n", decimal_res);
+
+	encrypt(M, key, res);
+	decimal_res = BN_bn2dec(res);
+	printf("rsa: %s\n", decimal_res);
 
 	return 0;
 }
