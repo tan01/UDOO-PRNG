@@ -60,12 +60,12 @@ int main(){
 	printf("rsa: %s\n", decimal_res);
 */
 	BN_set_word(M, 2);
-	unsigned char* result = rsa_bit_generator(M, 64);
+	unsigned char* result = rsa_bit_generator(M, 16);
 
 	printf("%d\n", result[0]);
 
 	BIGNUM* bignumrep = BN_new();
-	BN_bin2bn(result, 8, bignumrep);
+	BN_bin2bn(result, 2, bignumrep);
 
 	decimal_res = BN_bn2dec(bignumrep);
 	printf("random number: %s\n", decimal_res);
