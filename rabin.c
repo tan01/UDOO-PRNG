@@ -20,7 +20,7 @@ int private_key(BIGNUM* n){
 	return 1;
 }
 
-int encrypt(BIGNUM* M, BIGNUM* n, BIGNUM* C){
+int rabin_encrypt(BIGNUM* M, BIGNUM* n, BIGNUM* C){
 	BIGNUM * two = BN_new();
 	//unsigned long word = public_key();
 	BN_set_word(e, 2);
