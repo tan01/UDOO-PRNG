@@ -1,4 +1,5 @@
 #include "rsa.h"
+#include "bitgenerator.h"
 #include <stdio.h>
 
 int main(){
@@ -15,6 +16,7 @@ int main(){
 	BN_set_word(M, 2);
 	BN_set_word(e, 2);
 	BN_set_word(f, 8);
+
 
 	BIO *out = NULL;
 	out = BIO_new(BIO_s_file());
@@ -52,10 +54,26 @@ int main(){
 	char* decimal_res = BN_bn2dec(res);
 
 	printf("exp_mod: %s\n", decimal_res);
-
+/*
 	encrypt(M, key, res);
 	decimal_res = BN_bn2dec(res);
 	printf("rsa: %s\n", decimal_res);
+*/
+	BN_set_word(M, 2);
+	unsigned char* result = rsa_bit_generator(M, 64);
+
+	printf("%d\n", result[0]);
+
+	BIGNUM* bignumrep = BN_new();
+	BN_bin2bn(result, 8, bignumrep);
+
+	decimal_res = BN_bn2dec(bignumrep);
+	printf("random number: %s\n", decimal_res);
+	printf("number of bytes: %d\n", BN_num_bytes(bignumrep));
+
+	BN_free(bignumrep);
+
+	free(result);
 
 	return 0;
 }
