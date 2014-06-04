@@ -3,4 +3,4 @@
 
 int private_key();
 
-int encrypt(BIGNUM* M, BIGNUM* n, BIGNUM* C);
+int rsa_encrypt(BIGNUM* M, BIGNUM* n, BIGNUM* C);
