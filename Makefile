@@ -24,3 +24,7 @@ rsa:
 
 bit:
 	$(CC) -c bitgenerator.c
+
+clean:
+	rm primetest
+	rm *.o
