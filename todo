@@ -1,0 +1,6 @@
+- Optimize the code, replace BN_new() with BN_init() where applicable
+	This puts the bignum on stack
+- Recomment everything
+
+For Site:
+	- Make a small separate program that gets random numbers from /dev/random
