@@ -14,7 +14,7 @@ unsigned char* rsa_bit_generator(BIGNUM* seed, unsigned long long bits){
 	int i = 0;
 	for( i=0; i < (bits / 8); i++ ){
 		printf("Loop %d\n", i);
-		encrypt(M, n, C);
+		rsa_encrypt(M, n, C);
 
 		// debug
 		char* test = BN_bn2dec(C);

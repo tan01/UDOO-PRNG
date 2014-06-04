@@ -13,9 +13,9 @@ int main(){
 	BN_zero(e);
 	BN_zero(M);
 
-	BN_set_word(M, 2);
-	BN_set_word(e, 2);
-	BN_set_word(f, 8);
+	BN_set_word(M, 2216);
+	BN_set_word(e, 17127861);
+	BN_set_word(f, 11710038917);
 
 
 	BIO *out = NULL;
