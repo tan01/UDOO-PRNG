@@ -3,11 +3,11 @@
 
 #define PQBITS 32
 
-int public_key(){
+int rabin_public_key(){
 	return 3;
 }
 
-int private_key(BIGNUM* n){
+int rabin_private_key(BIGNUM* n){
 	BIGNUM* p = BN_new();
 	BIGNUM* q = BN_new();
 
@@ -23,7 +23,7 @@ int private_key(BIGNUM* n){
 int rabin_encrypt(BIGNUM* M, BIGNUM* n, BIGNUM* C){
 	BIGNUM * two = BN_new();
 	//unsigned long word = public_key();
-	BN_set_word(e, 2);
+	BN_set_word(two, 2);
 
 	mod_exp_binary(M, two, n, C);
 

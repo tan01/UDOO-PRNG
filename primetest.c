@@ -1,4 +1,5 @@
 #include "rsa.h"
+#include "rabin.h"
 #include "bitgenerator.h"
 #include <stdio.h>
 
@@ -60,12 +61,12 @@ int main(){
 	printf("rsa: %s\n", decimal_res);
 */
 	BN_set_word(M, 2);
-	unsigned char* result = rsa_bit_generator(M, 16);
+	unsigned char* result = rsa_bit_generator(M, 24);
 
 	printf("%d\n", result[0]);
 
 	BIGNUM* bignumrep = BN_new();
-	BN_bin2bn(result, 2, bignumrep);
+	BN_bin2bn(result, 3, bignumrep);
 
 	decimal_res = BN_bn2dec(bignumrep);
 	printf("random number: %s\n", decimal_res);
