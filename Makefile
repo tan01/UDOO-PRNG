@@ -22,6 +22,9 @@ mod_exp:
 rsa:
 	$(CC) -c rsa.c
 
+rabin:
+	$(CC) -c rabin.c
+
 bit:
 	$(CC) -c bitgenerator.c
 
