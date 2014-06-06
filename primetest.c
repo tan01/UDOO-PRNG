@@ -64,7 +64,7 @@ int main(){
 	printf("rsa: %s\n", decimal_res);
 */
 	BN_set_word(M, 2);
-	unsigned char* result = rsa_bit_generator(M, 16384);
+	unsigned char* result = rsa_bit_generator(M, 32);
 
 	printf("%d\n", result[0]);
 
@@ -73,7 +73,8 @@ int main(){
 	printf("Time taken %d secods %d millis", msec/1000,msec%1000);
 
 	BIGNUM* bignumrep = BN_new();
-	BN_bin2bn(result, 2048, bignumrep);
+
+	BN_bin2bn(result, 4, bignumrep);
 
 	decimal_res = BN_bn2dec(bignumrep);
 	printf("random number: %s\n", decimal_res);
