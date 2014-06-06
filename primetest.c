@@ -16,7 +16,7 @@ int main(){
 
 	BN_set_word(M, 2216);
 	BN_set_word(e, 17127861);
-	BN_set_word(f, 11710038917);
+	BN_set_word(f, 11710037);
 
 
 	BIO *out = NULL;
@@ -61,12 +61,12 @@ int main(){
 	printf("rsa: %s\n", decimal_res);
 */
 	BN_set_word(M, 2);
-	unsigned char* result = rsa_bit_generator(M, 24);
+	unsigned char* result = rsa_bit_generator(M, 16384);
 
 	printf("%d\n", result[0]);
 
 	BIGNUM* bignumrep = BN_new();
-	BN_bin2bn(result, 3, bignumrep);
+	BN_bin2bn(result, 2048, bignumrep);
 
 	decimal_res = BN_bn2dec(bignumrep);
 	printf("random number: %s\n", decimal_res);

@@ -4,7 +4,7 @@
 #define PQBITS 32
 
 int public_key(){
-	return 3;
+	return 65537;
 }
 
 int private_key(BIGNUM* n){
