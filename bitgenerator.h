@@ -1,5 +1,6 @@
 #include <openssl/bn.h>
 #include <openssl/bio.h>
+#include <timer.h>
 #include "rsa.h"
 #include "rabin.h"
 
