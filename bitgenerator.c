@@ -118,7 +118,14 @@ unsigned char* rsa_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 
 
 		gettimeofday(&t0,0);
-		
+	
+		/*
+		struct timespec tim,tim2;
+		tim.tv_sec=0;
+		tim.tv_nsec=1000000L;//sleep 
+		//nanosleep(&tim,&tim2);	
+
+		*/
 
 		printf("Loop %d\n", i);
 
