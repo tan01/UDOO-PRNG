@@ -62,7 +62,7 @@ int main(){
 	printf("rsa: %s\n", decimal_res);
 */
 	BN_set_word(M, 2);
-	unsigned char* result = rsa_bit_generator(M, 32);
+	unsigned char* result = rsa_bit_generator_timed(M, 32);
 
 	printf("%d\n", result[0]);
 
