@@ -33,7 +33,7 @@ int compute_key(BIGNUM* p, BIGNUM* q, BIGNUM* key){
  */
 int generate_p_q(int bit_length, BIGNUM* p, BIGNUM* q){
 	int res1 = BN_generate_prime_ex(p, bit_length, 0, NULL, NULL, NULL);
-	int res2 = BN_generate_prime_ex(q, bit_length, 0, NULL, NULL, NULL);
+	int res2 = BN_generate_prime_ex(q, bit_length + 3, 0, NULL, NULL, NULL);
 	if ( res1 == 0 || res2 == 0 )
 		return 0;
 	else
