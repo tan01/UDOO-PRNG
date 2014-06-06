@@ -1,6 +1,7 @@
 #include "rsa.h"
 #include "rabin.h"
 #include "bitgenerator.h"
+#include <time.h>
 #include <stdio.h>
 
 int main(){
@@ -42,6 +43,8 @@ int main(){
 	compute_key(p,q,key);
 	prime_totient(p,q,totient);
 
+	clock_t start = clock(),diff;
+
 	char* decimal_k = BN_bn2dec(key);
 	char* decimal_t = BN_bn2dec(totient);
 
@@ -64,6 +67,10 @@ int main(){
 	unsigned char* result = rsa_bit_generator(M, 16384);
 
 	printf("%d\n", result[0]);
+
+	diff = clock()-start;
+	int msec=diff*1000/CLOCKS_PER_SEC;
+	printf("Time taken %d secods %d millis", msec/1000,msec%1000);
 
 	BIGNUM* bignumrep = BN_new();
 	BN_bin2bn(result, 2048, bignumrep);
