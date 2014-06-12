@@ -20,6 +20,17 @@ int private_key(BIGNUM* n){
 	return 1;
 }
 
+/*
+ * rsa_encrypt(M, n, C)
+ * encrypts the inputs M and n using the rsa encryption function and stores
+ * the resulting value into C. M^e mod n.
+ *
+ * input:	BIGNUM* M
+ * 		BIGNUM* n
+ * output:	BIGNUM* C
+ * return value: 0 if success
+ *
+ */
 int rsa_encrypt(BIGNUM* M, BIGNUM* n, BIGNUM* C){
 	BIGNUM * e = BN_new();
 	unsigned long word = public_key();
