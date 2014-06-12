@@ -108,6 +108,8 @@ unsigned char* rsa_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 	unsigned char* binary_C;
 	unsigned char* result_bits = malloc(bits / 8 * sizeof(char));
 
+	unsigned long long total_time = 0;
+
 	private_key(n);
 
 	
@@ -161,9 +163,10 @@ unsigned char* rsa_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 	
 			
 		gettimeofday(&t1,0);
-		long elapsed = (t1.tv_sec-t0.tv_sec)*1000000 + t1.tv_usec-t0.tv_usec;
+		unsigned long elapsed = (t1.tv_sec-t0.tv_sec)*1000000 + t1.tv_usec-t0.tv_usec;
 		printf("TIME ELAPSED: %d \n",elapsed);
-		
+		total_time += elapsed;
+		printf("TOTAL TIME: %ld \n",total_time);
 		// put 8 bits into result_bits
 		result_bits[i] = temp_byte;
 
@@ -172,6 +175,10 @@ unsigned char* rsa_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 		// freeing memory
 		free(binary_C);
 	}
+
+	total_time = total_time;
+	double average_time = total_time / (double)bits;
+	printf("AVERAGE time to compute 1 bit: %lf\n", average_time);
 
 	BN_free(n);
 	BN_free(C);
@@ -304,6 +311,8 @@ unsigned char* rabin_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 	unsigned char* binary_C;
 	unsigned char* result_bits = malloc(bits / 8 * sizeof(char));
 
+	unsigned long long total_time = 0;
+
 	private_key(n);
 
 	struct timeval t0, t1;
@@ -345,7 +354,8 @@ unsigned char* rabin_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 		}
 
 		gettimeofday(&t1,0);
-		long elapsed = (t1.tv_sec-t0.tv_sec)*1000000 + t1.tv_usec-t0.tv_usec;
+		long elapsed = ((t1.tv_sec-t0.tv_sec)*1000000 + t1.tv_usec-t0.tv_usec) >> 3;
+		total_time += elapsed;
 		printf("TIME ELAPSED: %d \n",elapsed);
 		
 
@@ -359,7 +369,7 @@ unsigned char* rabin_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 		free(binary_C);
 	}
 
-	
+	printf("AVERAGE time to compute 1 bit: %d\n", total_time);
 
 	BN_free(n);
 	BN_free(C);
