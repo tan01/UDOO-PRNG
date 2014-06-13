@@ -176,7 +176,6 @@ unsigned char* rsa_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 		free(binary_C);
 	}
 
-	total_time = total_time;
 	double average_time = total_time / (double)bits;
 	printf("AVERAGE time to compute 1 bit: %lf\n", average_time);
 
@@ -322,12 +321,12 @@ unsigned char* rabin_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 	
 		gettimeofday(&t0, 0);	
 
-		printf("Loop %d\n", i);
+		//printf("Loop %d\n", i);
 
 		int bytes = BN_num_bytes(C);
 		binary_C = malloc(bytes * sizeof(char));
 
-		printf("bytes: %d\n", bytes);
+		//printf("bytes: %d\n", bytes);
 
 		int k;
 		// little endian
@@ -336,19 +335,19 @@ unsigned char* rabin_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 			rabin_encrypt(M, n, C);
 
 			// debug
-			char* test = BN_bn2dec(C);
-			printf("%s\n", test);
-			OPENSSL_free(test);
+			//char* test = BN_bn2dec(C);
+			//printf("%s\n", test);
+			//OPENSSL_free(test);
 
 			BN_bn2bin(C, binary_C);
 			// grab least significant bit
 			unsigned char temp_bit = binary_C[bytes-1];
 			temp_bit &= 1;
-			printf("temp_bit: %d\n", temp_bit);
+			//printf("temp_bit: %d\n", temp_bit);
 
 
 			set_bit( &temp_byte, k, &temp_bit );
-			printf("temp_byte[%d]: %d\n", k, temp_byte);
+			//printf("temp_byte[%d]: %d\n", k, temp_byte);
 
 			BN_copy(M, C);
 		}
@@ -356,20 +355,19 @@ unsigned char* rabin_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 		gettimeofday(&t1,0);
 		long elapsed = ((t1.tv_sec-t0.tv_sec)*1000000 + t1.tv_usec-t0.tv_usec) >> 3;
 		total_time += elapsed;
-		printf("TIME ELAPSED: %d \n",elapsed);
+		//printf("TIME ELAPSED: %d \n",elapsed);
 		
-
-
 		// put 8 bits into result_bits
 		result_bits[i] = temp_byte;
 
-		printf("result_bits[%d]: %d\n", i, temp_byte);
+		//printf("result_bits[%d]: %d\n", i, temp_byte);
 
 		// freeing memory
 		free(binary_C);
 	}
 
-	printf("AVERAGE time to compute 1 bit: %d\n", total_time);
+	double average_time = total_time / (double)bits;
+	printf("AVERAGE time to compute 1 bit: %f\n", average_time);
 
 	BN_free(n);
 	BN_free(C);

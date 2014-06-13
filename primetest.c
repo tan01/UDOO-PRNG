@@ -61,8 +61,9 @@ int main(){
 	decimal_res = BN_bn2dec(res);
 	printf("rsa: %s\n", decimal_res);
 */
-	BN_set_word(M, 2);
-	unsigned char* result = rsa_bit_generator_timed(M, 262144);
+	BN_set_word(M, 312786312987);
+	//unsigned char* result = rsa_bit_generator_timed(M, 262144);
+	unsigned char* result = rabin_bit_generator_timed(M, 262144);
 	//unsigned char* result = rsa_bit_generator_timed(M, 128);
 
 	printf("%d\n", result[0]);
