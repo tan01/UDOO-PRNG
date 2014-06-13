@@ -189,7 +189,7 @@ unsigned char* rsa_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 	}
 
 	double average_time = total_time / (double)bits;
-	printf("Total time to compute %d bits: %llu microseconds\n", bits, total_time);
+	printf("Total time to compute %llu bits: %llu microseconds\n", bits, total_time);
 	printf("AVERAGE time to compute 1 bit: %lf\n", average_time);
 
 	BN_free(n);
@@ -364,7 +364,7 @@ unsigned char* rabin_bit_generator_timed(BIGNUM* seed, unsigned long long bits){
 	}
 
 	double average_time = total_time / (double)bits;
-	printf("Total time to compute %d bits: %llu microseconds\n", bits, total_time);
+	printf("Total time to compute %llu bits: %llu microseconds\n", bits, total_time);
 	printf("Average time to compute 1 bit: %lf\n", average_time);
 
 	BN_free(n);
