@@ -1,12 +1,24 @@
 #include "key_gen.h"
 #include "mod_exp.h"
 
+// PUBKEY defines the public key exponent used in RSA.
+#define PUBKEY 65537
+// PQBITS defines the bit length of the two private key primes
 #define PQBITS 32
 
+/*
 int public_key(){
 	return 65537;
 }
+*/
 
+/* 
+ * private_key(BIGNUM* n: return value)
+ * Generates two PQBITS-sized primes and computes their product
+ * output:
+ * 	BIGNUM* n
+ * return value 1: if success
+ */
 int private_key(BIGNUM* n){
 	BIGNUM* p = BN_new();
 	BIGNUM* q = BN_new();
@@ -28,18 +40,18 @@ int private_key(BIGNUM* n){
  * input:	BIGNUM* M
  * 		BIGNUM* n
  * output:	BIGNUM* C
- * return value: 0 if success
+ * return value: 1 if success
  *
  */
 int rsa_encrypt(BIGNUM* M, BIGNUM* n, BIGNUM* C){
 	BIGNUM * e = BN_new();
-	unsigned long word = public_key();
+	unsigned long word = PUBKEY;
 	BN_set_word(e, word);
 
 	mod_exp_binary(M, e, n, C);
 
 	BN_free(e);
 
-	return 0;
+	return 1;
 }
 

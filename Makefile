@@ -12,7 +12,7 @@ all:
 	make rsa
 	make rabin
 	make bit
-	$(CC) $(OBJ) primetest.c -o primetest $(LIBS) $(CFLAGS)
+	$(CC) $(OBJ) random_number_test.c -o random_number_test $(LIBS) $(CFLAGS)
 
 key_gen:
 	$(CC) -c key_gen.c
@@ -30,5 +30,5 @@ bit:
 	$(CC) -c bitgenerator.c
 
 clean:
-	rm primetest
+	rm random_number_test
 	rm *.o
